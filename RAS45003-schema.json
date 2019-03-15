@@ -1,0 +1,66 @@
+{
+  "@context": ["http://www.w3.org/ns/csvw", {"@language": "en"}],
+  "tables": [
+    {
+      "url": "https://ons-opendata.github.io/ref_alcohol/codelists/severity.csv",
+      "tableSchema": "https://ons-opendata.github.io/ref_common/codelist-schema.json"
+    }, {
+      "url": "https://ons-opendata.github.io/ref_common/codelists/measurement-units.csv",
+      "tableSchema": "https://ons-opendata.github.io/ref_common/codelist-schema.json"
+    }, {
+    "url": "out/RAS45003.csv",
+      "tableSchema": {
+        "columns": [{
+          "titles": "Period",
+          "name": "period",
+          "datatype": {
+            "format": "^(quarter/[0-9]{4}-Q[1-4]|year/[0-9]{4}|gegorian-interval/.*|month/[0-9]{4}-[0-9]{2}|day/[0-9]{4}-[0-9]{2}-[0-9]{2})$"
+          },
+          "required": true
+        }, {
+          "titles": "Severity",
+          "name": "severity",
+          "datatype": {
+            "format": "^-?[\\w\\/]+(-[\\w\\/]+)*$"
+          },
+          "required": true
+        }, {
+          "titles": "Value",
+          "name": "value",
+          "required": true
+        }, {
+          "titles": "Unit",
+          "name": "unit",
+          "datatype": {
+            "format": "Casualties"
+          },
+          "required": true
+        }, {
+          "titles": "Measure Type",
+          "name": "measure_type",
+          "datatype": {
+            "format": "^(Average Count|Count)$"
+          },
+          "required": true
+        }, {
+          "titles": "Revision",
+          "name": "revision",
+          "datatype": {
+            "format": "^(revised|provisional|estimated|original-value)$"
+          },
+          "required": true
+        }],
+        "foreignKeys": [{
+          "columnReference": "severity",
+          "reference": {
+            "resource": "https://ons-opendata.github.io/ref_alcohol/codelists/severity.csv",
+            "columnReference": "notation"
+          }
+        }],
+        "primaryKey": [
+          "period", "severity", "measure_type", "unit", "revision"
+        ]
+      }
+    }
+  ]
+}
