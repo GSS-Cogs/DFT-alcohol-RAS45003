@@ -1,0 +1,67 @@
+{
+  "@context": [
+    "http://www.w3.org/ns/csvw",
+    {
+      "@language": "en"
+    }
+  ],
+  "tables": [
+    {
+      "url": "https://ons-opendata.github.io/ref_alcohol/codelists/severity.csv",
+      "tableSchema": "https://ons-opendata.github.io/ref_common/codelist-schema.json"
+    },
+    {
+      "url": "out/observations.csv",
+      "tableSchema": {
+        "columns": [
+          {
+            "titles": "Period",
+            "required": true,
+            "name": "period"
+          },
+          {
+            "titles": "Severity",
+            "required": true,
+            "name": "severity"
+          },
+          {
+            "titles": "Measure Type",
+            "required": true,
+            "name": "measure_type"
+          },
+          {
+            "titles": "Value",
+            "required": true,
+            "name": "value"
+          },
+          {
+            "titles": "Unit",
+            "required": true,
+            "name": "unit"
+          },
+          {
+            "titles": "Revision",
+            "required": true,
+            "name": "revision"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "columnReference": "severity",
+            "reference": {
+              "resource": "https://ons-opendata.github.io/ref_alcohol/codelists/severity.csv",
+              "columnReference": "notation"
+            }
+          }
+        ],
+        "primaryKey": [
+          "period",
+          "severity",
+          "measure_type",
+          "unit",
+          "revision"
+        ]
+      }
+    }
+  ]
+}
